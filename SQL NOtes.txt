@@ -1,0 +1,70 @@
+NOTES FOR TODAY (SQL)
+
+Decode clause (used with select) :- used for giving labels to values in a table.
+
+select 
+    ID, colorcode, 
+    DECODE(colorcode,
+				'#FF0000','RED', 
+				'#00FF00','GREEN', 
+				'#0000FF','BLUE', 
+					    'NO COLOR') 
+    AS COLOR_NAME
+from 
+    color;
+
+Here decode function matches values of colorcode column(attribute) with the given labels.
+If value in colorcode is '#FF0000' then it returns 'RED' and 'NO COLOR' if the value in colorcode is NULL
+
+OUTPUT :- 
+
+1	#FF0000	RED
+2	#00FF00	GREEN
+3	#0000FF	BLUE
+4	NULL	      NO COLOR
+
+
+
+
+Practice-
+decode(column_name,
+			 1, 'one',
+			 2, 'two',
+			 3, 'three',
+			    'zero')	 
+
+ROW_NUMBER() Function
+
+The ROW_NUMBER() is a window function that assigns a sequential integer number to each row in the query’s result set.	
+
+e.g. ->
+select
+    * 
+from 
+        (select   
+            ename, empno, sal, row_number() OVER (ORDER BY sal)
+        from
+            CJ_EMP)
+where
+    rownum < 6;
+
+OUTPUT
+
+SMITH	 7369	800	1
+JAMES	 7900	950	2
+ADAMS	 7876	1100	3
+WARD	 7521	1250	4
+MARTIN 7654	1250	5
+
+SQL ALL 
+
+The SQL ALL operator is a logical operator that compares a single value with a single-column set of values returned by a subquery.
+
+SYNTAX :-
+
+SELECT 
+    *
+FROM
+    table_name
+WHERE
+    column_name > ALL (subquery);
